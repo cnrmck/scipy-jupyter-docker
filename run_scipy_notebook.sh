@@ -10,7 +10,7 @@
 # PREVIOUSSCIPYVERSION='feacdbfc2e89' # updated 10/17/20
 # PREVIOUSSCIPYVERSION='aec555e49be6' # updated 1/22/21
 # PREVIOUSSCIPYVERSION='5cb007f03275' # updated 1/31/21
-# SCIPYVERSION='d39fb37995ce' # updated 7/24/21
+# PREVIOUSSCIPYVERSION='d39fb37995ce' # updated 7/24/21
 CONTAINERNAME='jupyter/scipy-notebook'
 SCIPYVERSION='2e7b2562e0dd' # updated 3/5/22
 
@@ -21,8 +21,16 @@ CUSTOM_CONTAINER=1
 SCIPY_CUSTOM_DOCKERFILE='./scipy/Dockerfile'
 VERSION_FILE='./scipy/.scipyversion'
 
+SCRIPT_DIRECTORY="$(dirname $(realpath $0))"
+
+if [ "$SCRIPT_DIRECTORY" != $(pwd) ]
+then
+  echo "You must run this command in the script directory: $SCRIPT_DIRECTORY"
+  exit 244
+fi
+
 # The result of your `pwd` command
-WORKDIR='/Users/Connor/code/jupyter/'
+WORKDIR="$(pwd)"
 
 # what is the name of the directory that you would like to share with the jupyter?
 NAMEOFSUBDIR='host/'
@@ -51,6 +59,9 @@ resolvesubdir () {
 # have to resolve the absolute directory in the case of symbolic links
 # would use readlink -f but don't have GNU version on OSX
 RESOLVED_WORKDIR=$(resolvesubdir "$WORKDIR""$NAMEOFSUBDIR")
+
+# make the subdir in case it doesn't exist
+mkdir -p "$RESOLVED_WORKDIR"
 
 # put custom notebook config into the container (can use to specify shortcuts and such)
 RESOLVED_CONFIG=$(resolvesubdir "$WORKDIR""$JUPYTER_CONFIG_FILE")
