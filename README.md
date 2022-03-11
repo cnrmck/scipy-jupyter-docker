@@ -4,6 +4,16 @@ This is where you'll put all your files so that they're on your local machine.
 
 Do NOT store anything in the `/work/` or root (`/`) directory. If you do it will be deleted when you update your container. Only store things in the `/host/` directory.
 
+Requires: 
+python3
+docker
+[ag](https://github.com/ggreer/the_silver_searcher) (faster grep)
+
+Install with: 
+```
+brew install the_silver_searcher
+```
+
 ```
 chmod gu+x ./run_scipy_notebook.sh
 ./run_scipy_notebook.sh 
