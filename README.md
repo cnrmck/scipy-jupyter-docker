@@ -1,25 +1,30 @@
 # scipy-jupyter-docker
 
-This is where you'll put all your files so that they're on your local machine. 
+## Description
+This is a tool for running a scipy notebook on jupyter in a docker container
 
+## Usage
 Do NOT store anything in the `/work/` or root (`/`) directory. If you do it will be deleted when you update your container. Only store things in the `/host/` directory.
 
-Requires: 
-python3
-docker
-[ag](https://github.com/ggreer/the_silver_searcher) (faster grep)
+## Requirements
 
-Install with: 
+On Mac requires: 
+- python3
+- docker
+- [ag - the silver searcher](https://github.com/ggreer/the_silver_searcher) (faster grep)
+
+If you're on Windows you'll have to buy a new computer.
+
+Install Ag with: 
 ```
 brew install the_silver_searcher
 ```
 
+This next command will run the notebook. You can inspect the (terrible) bash code to make sure it's not doing anything weird before you run it.
 ```
 chmod gu+x ./run_scipy_notebook.sh
 ./run_scipy_notebook.sh 
 ```
-
-This will run the notebook. You can inspect the (terrible) bash code to make sure it's not doing anything weird.
 
 If it succeeds you should see it end with: 
 ```
@@ -31,3 +36,6 @@ Or copy and paste one of these URLs:
 ```
 
 On Mac, grab that final link (the one that starts with `http://127.0.0.1:888...` and paste it into your browser.
+
+## To Add Your Own Packages
+To add your own packages, go to `./scipy/Dockerfile` where you should see some RUN statements. You can edit the `conda` and `pip` installs there. 
